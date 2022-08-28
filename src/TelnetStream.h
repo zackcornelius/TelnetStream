@@ -26,6 +26,7 @@ class TelnetStreamClass : public Stream {
 private:
   NetServer server;
   NetClient client;
+  bool _noDelay;
 
  boolean disconnected();
 
@@ -33,7 +34,7 @@ public:
 
   TelnetStreamClass(uint16_t port);
 
-  void begin(int port = 0);
+  void begin(int port = 0, bool noDelay = false);
   void stop();
 
   // Stream implementation
