@@ -15,7 +15,7 @@ void TelnetStreamClass::begin(int port, bool noDelay) {
 #endif
   client = server.available();
   if (client) {
-    client.setNoDelay(noDelay);
+    client.setNoDelay(_noDelay);
   }
 }
 
@@ -35,7 +35,7 @@ boolean TelnetStreamClass::disconnected() {
   if (!client || !client.available()) {
     client = server.available(); // try to get next client with data
     if (client) {
-      client.setNoDelay(noDelay);
+      client.setNoDelay(_noDelay);
     }
   }
   return !client;
