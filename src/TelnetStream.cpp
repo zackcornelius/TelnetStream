@@ -3,7 +3,8 @@
 TelnetStreamClass::TelnetStreamClass(uint16_t port) :server(port) {
 }
 
-void TelnetStreamClass::begin(int port) {
+void TelnetStreamClass::begin(int port, bool noDelay) {
+  _noDelay = noDelay
   if (port) {
     server = NetServer(port);
   }
@@ -13,6 +14,9 @@ void TelnetStreamClass::begin(int port) {
   server.begin();
 #endif
   client = server.available();
+  if (client) {
+    client.setNoDelay(noDelay);
+  }
 }
 
 void TelnetStreamClass::stop() {
@@ -30,6 +34,9 @@ boolean TelnetStreamClass::disconnected() {
 
   if (!client || !client.available()) {
     client = server.available(); // try to get next client with data
+    if (client) {
+      client.setNoDelay(noDelay);
+    }
   }
   return !client;
 }
