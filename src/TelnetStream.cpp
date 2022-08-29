@@ -4,7 +4,7 @@ TelnetStreamClass::TelnetStreamClass(uint16_t port) :server(port) {
 }
 
 void TelnetStreamClass::begin(int port, bool noDelay) {
-  _noDelay = noDelay
+  _noDelay = noDelay;
   if (port) {
     server = NetServer(port);
   }
